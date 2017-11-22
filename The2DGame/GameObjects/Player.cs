@@ -11,6 +11,9 @@ namespace Game2D.GameObjects
 {
     public class Player : GameObject
     {
+        private Texture2D textureCower;
+        private Texture2D textureStanding;
+
         private int score = 0;
         private int highscore = 0;
 
@@ -18,15 +21,30 @@ namespace Game2D.GameObjects
         private int jumpCounter = 0;
         private int maxJumps = 2;
         private bool jumpKeyWasPressed = false;
+        private bool cowerKeyWasPressed = false;
 
-        public Player(Vector2 position, Texture2D texture, float textureScale) : base(position, texture, textureScale)
+        public Player(Vector2 position, Texture2D texture, int playertTextureScale, float textureScale, Texture2D textureCower) : base(position, texture, textureScale)
         {
-
+            this.textureCower = textureCower;
+            this.textureStanding = texture;
         }
 
         public override void Update()
         {
             var Keyboardstate = Keyboard.GetState();
+
+
+            if (Keyboardstate.IsKeyUp(Keys.S) && cowerKeyWasPressed)
+            {
+                texture = textureStanding;
+                cowerKeyWasPressed = false;
+            }
+            if (Keyboardstate.IsKeyDown(Keys.S) && !cowerKeyWasPressed)
+            {
+                texture = textureCower;
+                cowerKeyWasPressed = true;
+            }
+
             if (IsGrounded())
             {
                 jumpKeyWasPressed = false;
@@ -36,6 +54,7 @@ namespace Game2D.GameObjects
                 {
                     Jump();
                 }
+                
             }
             else
             {
@@ -75,5 +94,6 @@ namespace Game2D.GameObjects
 
         public int Score { get => score; set => score = value; }
         public int Highscore { get => highscore; set => highscore = value; }
+        public Texture2D TextureStanding { get => textureStanding; }
     }
 }

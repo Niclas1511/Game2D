@@ -45,9 +45,10 @@ namespace Game2D
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //Player
             var playerTexture = Content.Load<Texture2D>("playerTexture");
+            var playerTexture2 = Content.Load<Texture2D>("playerTextureCoward");
             int playertTextureScale = 3;
             var playerPos = new Vector2(40, GraphicsDevice.Viewport.Height - playerTexture.Height * playertTextureScale);
-            player = new Player(playerPos, playerTexture, playertTextureScale);
+            player = new Player(playerPos, playerTexture, playertTextureScale, playertTextureScale, playerTexture2);
             //Background
             backgroundTile = Content.Load<Texture2D>("spaceTile");
             earthTexture = Content.Load<Texture2D>("earth");
@@ -66,30 +67,16 @@ namespace Game2D
                 Exit();
             //Neue Objekte erstellen:
             Random random = new Random();
+            List<float> possibleY = new List<float>();
+            possibleY.Add(GraphicsDevice.Viewport.Height - 0.25f * earthTexture.Height);
+            possibleY.Add(GraphicsDevice.Viewport.Height - (player.TextureStanding.Height*3) - 0.25f * earthTexture.Height);
+            possibleY.Add(GraphicsDevice.Viewport.Height - ((player.TextureStanding.Height*3) / 2) - 0.25f * earthTexture.Height);
             if (random.Next(70) == 0)
             {
                 //das letzte erstelle Objekt hat 800 - 600 = 200 Abstand zum rechten Rand
                 if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
                 {
-                    var startPosition = new Vector2(GraphicsDevice.Viewport.Width, (GraphicsDevice.Viewport.Height - 0.25f * earthTexture.Height));//random.Next(GraphicsDevice.Viewport.Height) - 
-                    gameObjects.Add(new Earth(startPosition, earthTexture, 0.25f, 5f));
-                }
-            }
-            if (random.Next(70) == 0)
-            {
-                //das letzte erstelle Objekt hat 800 - 600 = 200 Abstand zum rechten Rand
-                if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
-                {
-                    var startPosition = new Vector2(GraphicsDevice.Viewport.Width, (GraphicsDevice.Viewport.Height - player.GetBoundary.Height - 0.25f * earthTexture.Height));//random.Next(GraphicsDevice.Viewport.Height) - 
-                    gameObjects.Add(new Earth(startPosition, earthTexture, 0.25f, 5f));
-                }
-            }
-            if (random.Next(70) == 0)
-            {
-                //das letzte erstelle Objekt hat 800 - 600 = 200 Abstand zum rechten Rand
-                if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
-                {
-                    var startPosition = new Vector2(GraphicsDevice.Viewport.Width, (GraphicsDevice.Viewport.Height - (player.GetBoundary.Height/2) - 0.25f * earthTexture.Height));//random.Next(GraphicsDevice.Viewport.Height) - 
+                    var startPosition = new Vector2(GraphicsDevice.Viewport.Width, possibleY[random.Next(3)]);//random.Next(GraphicsDevice.Viewport.Height) - 
                     gameObjects.Add(new Earth(startPosition, earthTexture, 0.25f, 5f));
                 }
             }
