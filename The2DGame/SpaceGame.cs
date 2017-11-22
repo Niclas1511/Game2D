@@ -20,7 +20,7 @@ namespace Game2D
         Texture2D earthTexture;
         private SpriteFont Font;
         //Objekte:
-        List<GameObject> gameObjects;
+        List<GameObject> gameObjects = new List<GameObject>();
         Player player;
 
 
@@ -36,7 +36,6 @@ namespace Game2D
             graphics.PreferredBackBufferWidth = 1000;
             graphics.PreferredBackBufferHeight = 600;
             graphics.ApplyChanges();
-            gameObjects = new List<GameObject>();
             base.Initialize();
         }
 
@@ -45,20 +44,15 @@ namespace Game2D
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //Player
             var playerTexture = Content.Load<Texture2D>("playerTexture");
-            var playerTexture2 = Content.Load<Texture2D>("playerTextureCoward");
+            var playerTextureCoward = Content.Load<Texture2D>("playerTextureCoward");
             int playertTextureScale = 3;
             var playerPos = new Vector2(40, GraphicsDevice.Viewport.Height - playerTexture.Height * playertTextureScale);
-            player = new Player(playerPos, playerTexture, playertTextureScale, playertTextureScale, playerTexture2);
+            player = new Player(playerPos, playerTexture, playertTextureScale, playertTextureScale, playerTextureCoward);
             //Background
             backgroundTile = Content.Load<Texture2D>("spaceTile");
             earthTexture = Content.Load<Texture2D>("earth");
             //Font
             Font = Content.Load<SpriteFont>("Courier New");
-        }
-
-        protected override void UnloadContent()
-        {
-
         }
 
         protected override void Update(GameTime gameTime)
@@ -92,10 +86,15 @@ namespace Game2D
                     player.Score = 0;
                     GameSpeed = 1;
                 }
+                if (gameObjects[i].Position.X < -20)
+                {
+                    gameObjects.RemoveAt(i);
+                    player.Score += 100;
+                }
             }
             //Score:
             player.Score+= (int)(1 * SpaceGame.GameSpeed);
-            SpaceGame.GameSpeed += 0.003f;
+            SpaceGame.GameSpeed += 0.005f;
             base.Update(gameTime);
         }
 
@@ -103,15 +102,7 @@ namespace Game2D
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
-            //Hintergrund malen:
-            int n = GraphicsDevice.Viewport.Width / backgroundTile.Width + 1;
-            for (int x = 0; x < n; x++)
-            {
-                for (int y = 0; y < n; y++)
-                {
-                    spriteBatch.Draw(backgroundTile, new Vector2(x * backgroundTile.Width, y * backgroundTile.Height), Color.White);
-                }
-            }
+            drawBackground(spriteBatch);
             //Objekte malen
             for (int i = 0; i < gameObjects.Count; i++)
             {
@@ -124,6 +115,18 @@ namespace Game2D
 
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        private void drawBackground(SpriteBatch spriteBatch)
+        {
+            int n = GraphicsDevice.Viewport.Width / backgroundTile.Width + 1;
+            for (int x = 0; x < n; x++)
+            {
+                for (int y = 0; y < n; y++)
+                {
+                    spriteBatch.Draw(backgroundTile, new Vector2(x * backgroundTile.Width, y * backgroundTile.Height), Color.White);
+                }
+            }
         }
     }
 }

@@ -33,28 +33,27 @@ namespace Game2D.GameObjects
         {
             var Keyboardstate = Keyboard.GetState();
 
-
             if (Keyboardstate.IsKeyUp(Keys.S) && cowerKeyWasPressed)
             {
                 texture = textureStanding;
+                position.X += 30;
                 cowerKeyWasPressed = false;
             }
-            if (Keyboardstate.IsKeyDown(Keys.S) && !cowerKeyWasPressed)
+            if (IsGrounded() && Keyboardstate.IsKeyDown(Keys.S) && !cowerKeyWasPressed)
             {
                 texture = textureCower;
+                position.X -= 30;
                 cowerKeyWasPressed = true;
             }
-
             if (IsGrounded())
             {
                 jumpKeyWasPressed = false;
                 jumpCounter = 0;
                 velocity.Y = 0;
-                if (Keyboardstate.IsKeyDown(Keys.W) && !jumpKeyWasPressed)
+                if (Keyboardstate.IsKeyDown(Keys.W) && !jumpKeyWasPressed && Keyboardstate.IsKeyUp(Keys.S))
                 {
                     Jump();
                 }
-                
             }
             else
             {
