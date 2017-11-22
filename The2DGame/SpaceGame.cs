@@ -85,11 +85,12 @@ namespace Game2D
                 {
                     if (player.Score > player.Highscore) player.Highscore = player.Score;
                     player.Score = 0;
+                    GameSpeed = 1;
                 }
             }
             //Score:
             player.Score++;
-            SpaceGame.GameSpeed += 0.001f;
+            SpaceGame.GameSpeed += 0.002f;
             base.Update(gameTime);
         }
 
