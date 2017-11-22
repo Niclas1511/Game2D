@@ -89,7 +89,7 @@ namespace Game2D
                 }
             }
             //Score:
-            player.Score++;
+            player.Score+= (int)(1 * SpaceGame.GameSpeed);
             SpaceGame.GameSpeed += 0.002f;
             base.Update(gameTime);
         }
