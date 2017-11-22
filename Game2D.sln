@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game2D", "SpaceJumper\Game2D.csproj", "{2B1C0EE8-B332-4B51-A24F-D5F8A934AB11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game2D", "The2DGame\Game2D.csproj", "{4B92E61C-AEE0-4E45-A5B2-5ABFB4B6158F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2B1C0EE8-B332-4B51-A24F-D5F8A934AB11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B1C0EE8-B332-4B51-A24F-D5F8A934AB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B1C0EE8-B332-4B51-A24F-D5F8A934AB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B1C0EE8-B332-4B51-A24F-D5F8A934AB11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B92E61C-AEE0-4E45-A5B2-5ABFB4B6158F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B92E61C-AEE0-4E45-A5B2-5ABFB4B6158F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B92E61C-AEE0-4E45-A5B2-5ABFB4B6158F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B92E61C-AEE0-4E45-A5B2-5ABFB4B6158F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

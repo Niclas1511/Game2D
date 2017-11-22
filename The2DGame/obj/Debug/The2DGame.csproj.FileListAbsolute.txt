@@ -1,0 +1,22 @@
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\obj\Debug\The2DGame.csproj.CoreCompileInputs.cache
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\obj\Debug\The2DGame.csprojResolveAssemblyReference.cache
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll.config
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\Content\Courier New.xnb
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\Content\earth.xnb
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\Content\playerTexture.xnb
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\Content\spaceTile.xnb
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\x86\SDL2.dll
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\x64\SDL2.dll
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\x86\soft_oal.dll
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\x64\soft_oal.dll
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\x86\libSDL2-2.0.so.0
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\x64\libSDL2-2.0.so.0
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\x86\libopenal.so.1
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\x64\libopenal.so.1
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\libSDL2-2.0.0.dylib
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\libopenal.1.dylib
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\The2DGame.exe
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\The2DGame.pdb
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\MonoGame.Framework.dll
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\obj\Debug\The2DGame.exe
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\obj\Debug\The2DGame.pdb
