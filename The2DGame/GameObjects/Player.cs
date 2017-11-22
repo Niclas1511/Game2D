@@ -52,7 +52,7 @@ namespace Game2D.GameObjects
                 }
                 velocity.Y += SpaceGame.Gravity;
             }
-            position += (velocity * SpaceGame.GameSpeed);
+            position += velocity;
         }
 
         private void Jump()

@@ -66,12 +66,30 @@ namespace Game2D
                 Exit();
             //Neue Objekte erstellen:
             Random random = new Random();
-            if (random.Next(25) == 0)
+            if (random.Next(70) == 0)
             {
                 //das letzte erstelle Objekt hat 800 - 600 = 200 Abstand zum rechten Rand
                 if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
                 {
-                    var startPosition = new Vector2(GraphicsDevice.Viewport.Width, random.Next(GraphicsDevice.Viewport.Height) - (0.25f * earthTexture.Height));
+                    var startPosition = new Vector2(GraphicsDevice.Viewport.Width, (GraphicsDevice.Viewport.Height - 0.25f * earthTexture.Height));//random.Next(GraphicsDevice.Viewport.Height) - 
+                    gameObjects.Add(new Earth(startPosition, earthTexture, 0.25f, 5f));
+                }
+            }
+            if (random.Next(70) == 0)
+            {
+                //das letzte erstelle Objekt hat 800 - 600 = 200 Abstand zum rechten Rand
+                if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
+                {
+                    var startPosition = new Vector2(GraphicsDevice.Viewport.Width, (GraphicsDevice.Viewport.Height - player.GetBoundary.Height - 0.25f * earthTexture.Height));//random.Next(GraphicsDevice.Viewport.Height) - 
+                    gameObjects.Add(new Earth(startPosition, earthTexture, 0.25f, 5f));
+                }
+            }
+            if (random.Next(70) == 0)
+            {
+                //das letzte erstelle Objekt hat 800 - 600 = 200 Abstand zum rechten Rand
+                if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
+                {
+                    var startPosition = new Vector2(GraphicsDevice.Viewport.Width, (GraphicsDevice.Viewport.Height - (player.GetBoundary.Height/2) - 0.25f * earthTexture.Height));//random.Next(GraphicsDevice.Viewport.Height) - 
                     gameObjects.Add(new Earth(startPosition, earthTexture, 0.25f, 5f));
                 }
             }
@@ -90,7 +108,7 @@ namespace Game2D
             }
             //Score:
             player.Score+= (int)(1 * SpaceGame.GameSpeed);
-            SpaceGame.GameSpeed += 0.002f;
+            SpaceGame.GameSpeed += 0.003f;
             base.Update(gameTime);
         }
 
