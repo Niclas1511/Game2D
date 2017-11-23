@@ -117,16 +117,28 @@ namespace Game2D
             base.Draw(gameTime);
         }
 
+        private int colorCounter = 0;
+        private Color color = Color.White;
         private void drawBackground(SpriteBatch spriteBatch)
         {
+            if (colorCounter > 20)
+            {
+                colorCounter = 0;
+                color = Color.White;
+            }
+            else if (colorCounter > 10)
+            {
+                color = Color.Red;
+            }
             int n = GraphicsDevice.Viewport.Width / backgroundTile.Width + 1;
             for (int x = 0; x < n; x++)
             {
                 for (int y = 0; y < n; y++)
                 {
-                    spriteBatch.Draw(backgroundTile, new Vector2(x * backgroundTile.Width, y * backgroundTile.Height), Color.White);
+                    spriteBatch.Draw(backgroundTile, new Vector2(x * backgroundTile.Width, y * backgroundTile.Height), color);
                 }
             }
+            colorCounter++;
         }
     }
 }
