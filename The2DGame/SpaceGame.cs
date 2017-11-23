@@ -128,7 +128,7 @@ namespace Game2D
             }
             else if (colorCounter > 4)
             {
-                color = Color.Red;
+                color = Color.Orange;
             }
             int n = GraphicsDevice.Viewport.Width / backgroundTile.Width + 1;
             for (int x = 0; x < n; x++)
