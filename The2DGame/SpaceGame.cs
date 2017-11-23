@@ -50,7 +50,7 @@ namespace Game2D
             player = new Player(playerPos, playerTexture, playertTextureScale, playertTextureScale, playerTextureCoward);
             //Background
             backgroundTile = Content.Load<Texture2D>("spaceTile");
-            earthTexture = Content.Load<Texture2D>("earth");
+            earthTexture = Content.Load<Texture2D>("doener2");
             //Font
             Font = Content.Load<SpriteFont>("Courier New");
         }
@@ -71,7 +71,7 @@ namespace Game2D
                 if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
                 {
                     var startPosition = new Vector2(GraphicsDevice.Viewport.Width, possibleY[random.Next(3)]);//random.Next(GraphicsDevice.Viewport.Height) - 
-                    gameObjects.Add(new Earth(startPosition, earthTexture, 0.25f, 5f));
+                    gameObjects.Add(new Earth(startPosition, earthTexture, 2f, 5f));
                 }
             }
             //Alles Updaten:
@@ -86,7 +86,7 @@ namespace Game2D
                     player.Score = 0;
                     GameSpeed = 1;
                 }
-                if (gameObjects[i].Position.X < -20)
+                if (gameObjects[i].Position.X < -500)
                 {
                     gameObjects.RemoveAt(i);
                     player.Score += 100;
@@ -121,12 +121,12 @@ namespace Game2D
         private Color color = Color.White;
         private void drawBackground(SpriteBatch spriteBatch)
         {
-            if (colorCounter > 20)
+            if (colorCounter > 10)
             {
                 colorCounter = 0;
                 color = Color.White;
             }
-            else if (colorCounter > 10)
+            else if (colorCounter > 4)
             {
                 color = Color.Red;
             }

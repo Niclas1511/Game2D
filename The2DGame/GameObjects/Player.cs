@@ -50,18 +50,18 @@ namespace Game2D.GameObjects
                 jumpKeyWasPressed = false;
                 jumpCounter = 0;
                 velocity.Y = 0;
-                if (Keyboardstate.IsKeyDown(Keys.W) && !jumpKeyWasPressed && Keyboardstate.IsKeyUp(Keys.S))
+                if (Keyboardstate.IsKeyDown(Keys.Space) && !jumpKeyWasPressed && Keyboardstate.IsKeyUp(Keys.S))
                 {
                     Jump();
                 }
             }
             else
             {
-                if (Keyboardstate.IsKeyUp(Keys.W))
+                if (Keyboardstate.IsKeyUp(Keys.Space))
                 {
                     jumpKeyWasPressed = false;
                 }
-                if (Keyboardstate.IsKeyDown(Keys.W) && jumpCounter < maxJumps)
+                if (Keyboardstate.IsKeyDown(Keys.Space) && jumpCounter < maxJumps)
                 {
                     if (jumpKeyWasPressed == false)
                     {

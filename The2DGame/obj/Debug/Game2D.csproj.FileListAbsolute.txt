@@ -21,3 +21,4 @@ D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\obj\Debug\The2DGame.exe
 D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\obj\Debug\The2DGame.pdb
 D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\obj\Debug\Game2D.csprojResolveAssemblyReference.cache
 D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\Content\playerTextureCoward.xnb
+D:\Dateien\Universität\2dGameDev\Game2D\The2DGame\bin\DesktopGL\AnyCPU\Debug\Content\doener2.xnb
