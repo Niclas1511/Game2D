@@ -10,7 +10,7 @@ namespace Game2D.GameObjects
 {
     public abstract class GameObject
     {
-        protected Vector2 position = new Vector2(0, 0);
+        protected Vector2 position;
         protected Texture2D texture;
         protected float textureScale;
         protected Vector2 velocity = new Vector2(0, 0);
@@ -24,13 +24,15 @@ namespace Game2D.GameObjects
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            var rectangle = new Rectangle((int)position.X, (int)position.Y, (int)(texture.Width * textureScale), (int)(texture.Height * textureScale));
+            var rectangle = new Rectangle((int)position.X, (int)position.Y, (int)(texture.Width * TextureScale), (int)(texture.Height * TextureScale));
             spriteBatch.Draw(texture, rectangle, Color.White);
         }
 
         public abstract void Update();
 
         public Vector2 Position => position;
-        public Rectangle GetBoundary => new Rectangle((int)position.X, (int)position.Y, (int)(texture.Width * textureScale), (int)(texture.Height * textureScale));
+        public Rectangle GetBoundary => new Rectangle((int)position.X, (int)position.Y, (int)(texture.Width * TextureScale), (int)(texture.Height * TextureScale));
+
+        public float TextureScale { get => textureScale; }
     }
 }

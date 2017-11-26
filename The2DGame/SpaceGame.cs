@@ -10,15 +10,17 @@ namespace Game2D
     public class SpaceGame : Game
     {
         //static:
-        public static float GameSpeed = 1;
-        public static float Gravity = 0.9f;
+        public static float gameSpeed = 1;
+        public static float gravity = 1.2f;
+
         //Technisch:
+        Random random = new Random();
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         //Texturen:
         Texture2D backgroundTile;
-        Texture2D earthTexture;
-        private SpriteFont Font;
+        List<Texture2D> obstacleTextures = new List<Texture2D>();
+        private SpriteFont font;
         //Objekte:
         List<GameObject> gameObjects = new List<GameObject>();
         Player player;
@@ -42,17 +44,31 @@ namespace Game2D
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //Player
-            var playerTexture = Content.Load<Texture2D>("playerTexture");
-            var playerTextureCoward = Content.Load<Texture2D>("playerTextureCoward");
-            int playertTextureScale = 3;
-            var playerPos = new Vector2(40, GraphicsDevice.Viewport.Height - playerTexture.Height * playertTextureScale);
-            player = new Player(playerPos, playerTexture, playertTextureScale, playertTextureScale, playerTextureCoward);
-            //Background
+            Texture2D playerTextureStanding = Content.Load<Texture2D>("playerTexture");
+            Texture2D playerTextureCoward = Content.Load<Texture2D>("playerTextureCoward");
+            int playerTexureScale = 3;
+            Vector2 playerPos = new Vector2(40, GraphicsDevice.Viewport.Height - playerTextureStanding.Height * playerTexureScale);
+            player = new Player(playerPos, playerTextureStanding, playerTexureScale, playerTextureCoward);
             backgroundTile = Content.Load<Texture2D>("spaceTile");
-            earthTexture = Content.Load<Texture2D>("earth");
-            //Font
-            Font = Content.Load<SpriteFont>("Courier New");
+            font = Content.Load<SpriteFont>("Courier New");
+            obstacleTextures.Add(Content.Load<Texture2D>("asteroid"));
+            obstacleTextures.Add(Content.Load<Texture2D>("penis")); 
+        }
+
+        private Obstacle createRandomObstacle(Texture2D textureObstacle, float speed)
+        {
+            Viewport screen = GraphicsDevice.Viewport;
+            float textureScale = ((player.TextureStanding.Height * player.TextureScale) / 2) / textureObstacle.Height;
+            float[] possibleY = new float[3];
+            for (int i = 0; i < possibleY.Length; i++)
+            {
+                if (i == 0)
+                    possibleY[i] = screen.Height - textureScale * textureObstacle.Height;
+                else
+                    possibleY[i] = screen.Height - player.TextureStanding.Height * player.TextureScale - textureScale* textureObstacle.Height * (i - 1);
+            }
+            Vector2 position = new Vector2(screen.Width, possibleY[random.Next(possibleY.Length)]);
+            return new Obstacle(position, textureObstacle, textureScale, speed);
         }
 
         protected override void Update(GameTime gameTime)
@@ -60,18 +76,11 @@ namespace Game2D
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             //Neue Objekte erstellen:
-            Random random = new Random();
-            List<float> possibleY = new List<float>();
-            possibleY.Add(GraphicsDevice.Viewport.Height - 0.25f * earthTexture.Height);
-            possibleY.Add(GraphicsDevice.Viewport.Height - (player.TextureStanding.Height*3) - 0.25f * earthTexture.Height);
-            possibleY.Add(GraphicsDevice.Viewport.Height - ((player.TextureStanding.Height*3) / 2) - 0.25f * earthTexture.Height);
-            if (random.Next(70) == 0)
+            if (random.Next(60) == 0)
             {
-                //das letzte erstelle Objekt hat 800 - 600 = 200 Abstand zum rechten Rand
                 if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
                 {
-                    var startPosition = new Vector2(GraphicsDevice.Viewport.Width, possibleY[random.Next(3)]);//random.Next(GraphicsDevice.Viewport.Height) - 
-                    gameObjects.Add(new Earth(startPosition, earthTexture, 0.25f, 5f));
+                    gameObjects.Add(createRandomObstacle(obstacleTextures[random.Next(obstacleTextures.Count)], 6f));
                 }
             }
             //Alles Updaten:
@@ -79,22 +88,22 @@ namespace Game2D
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 gameObjects[i].Update();
+                if (gameObjects[i].Position.X < -200)
+                {
+                    gameObjects.RemoveAt(i);
+                    continue;
+                }
                 //Kollision:
                 if (player.GetBoundary.Intersects(gameObjects[i].GetBoundary))
                 {
                     if (player.Score > player.Highscore) player.Highscore = player.Score;
                     player.Score = 0;
-                    GameSpeed = 1;
-                }
-                if (gameObjects[i].Position.X < -500)
-                {
-                    gameObjects.RemoveAt(i);
-                    player.Score += 100;
+                    gameSpeed = 1;
                 }
             }
             //Score:
-            player.Score+= (int)(1 * SpaceGame.GameSpeed);
-            SpaceGame.GameSpeed += 0.005f;
+            player.Score += (int)(1 * SpaceGame.gameSpeed);
+            SpaceGame.gameSpeed += 0.002f;
             base.Update(gameTime);
         }
 
@@ -110,35 +119,23 @@ namespace Game2D
             }
             player.Draw(spriteBatch);
             //Font schreiben
-            spriteBatch.DrawString(Font, "HS: " + player.Highscore.ToString(), new Vector2(40, 0), Color.ForestGreen);
-            spriteBatch.DrawString(Font, player.Score.ToString(), new Vector2(40, 70), Color.Firebrick);
+            spriteBatch.DrawString(font, "HS: " + player.Highscore.ToString(), new Vector2(40, 0), Color.ForestGreen);
+            spriteBatch.DrawString(font, player.Score.ToString(), new Vector2(40, 70), Color.Firebrick);
 
             spriteBatch.End();
             base.Draw(gameTime);
         }
 
-        private int colorCounter = 0;
-        private Color color = Color.White;
         private void drawBackground(SpriteBatch spriteBatch)
         {
-            if (colorCounter > 10)
-            {
-                colorCounter = 0;
-                color = Color.White;
-            }
-            else if (colorCounter > 4)
-            {
-                color = Color.Orange;
-            }
             int n = GraphicsDevice.Viewport.Width / backgroundTile.Width + 1;
             for (int x = 0; x < n; x++)
             {
                 for (int y = 0; y < n; y++)
                 {
-                    spriteBatch.Draw(backgroundTile, new Vector2(x * backgroundTile.Width, y * backgroundTile.Height), color);
+                    spriteBatch.Draw(backgroundTile, new Vector2(x * backgroundTile.Width, y * backgroundTile.Height), Color.LightYellow);
                 }
             }
-            colorCounter++;
         }
     }
 }

@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Game2D.GameObjects
 {
-    public class Earth : GameObject
+    public class Obstacle : GameObject
     {
         private float speed;
 
-        public Earth(Vector2 position, Texture2D texture, float textureScale, float speed) : base(position, texture, textureScale)
+        public Obstacle(Vector2 position, Texture2D texture, float textureScale, float speed) : base(position, texture, textureScale)
         {
             this.speed = speed;
         }
 
         public override void Update()
         {
-            position.X -= (speed * SpaceGame.GameSpeed);
+            position.X -= (speed * SpaceGame.gameSpeed);
         }
     }
 }

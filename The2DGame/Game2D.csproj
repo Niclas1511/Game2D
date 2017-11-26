@@ -43,7 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="SpaceGame.cs" />
-    <Compile Include="GameObjects\Earth.cs" />
+    <Compile Include="GameObjects\Obstacle.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Program.cs" />

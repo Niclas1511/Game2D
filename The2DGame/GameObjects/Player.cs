@@ -17,13 +17,13 @@ namespace Game2D.GameObjects
         private int score = 0;
         private int highscore = 0;
 
-        private int jumpSpeed = 23;
+        private int jumpSpeed = 27;
         private int jumpCounter = 0;
-        private int maxJumps = 2;
+        private int maxJumps = 1;
         private bool jumpKeyWasPressed = false;
         private bool cowerKeyWasPressed = false;
 
-        public Player(Vector2 position, Texture2D texture, int playertTextureScale, float textureScale, Texture2D textureCower) : base(position, texture, textureScale)
+        public Player(Vector2 position, Texture2D texture, float textureScale, Texture2D textureCower) : base(position, texture, textureScale)
         {
             this.textureCower = textureCower;
             this.textureStanding = texture;
@@ -68,7 +68,7 @@ namespace Game2D.GameObjects
                         Jump();
                     }
                 }
-                velocity.Y += SpaceGame.Gravity;
+                velocity.Y += SpaceGame.gravity;
             }
             position += velocity;
         }
@@ -82,9 +82,9 @@ namespace Game2D.GameObjects
 
         public bool IsGrounded()
         {
-            if (position.Y + velocity.Y >= 600 - texture.Height * textureScale)
+            if (position.Y + velocity.Y >= 600 - texture.Height * TextureScale)
             {
-                position.Y = 600 - texture.Height * textureScale;
+                position.Y = 600 - texture.Height * TextureScale;
                 return true;
             }
             else
