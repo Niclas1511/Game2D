@@ -14,12 +14,14 @@ namespace Game2D.GameObjects
 
         public Obstacle(Vector2 position, Texture2D texture, float textureScale, float speed) : base(position, texture, textureScale)
         {
-            this.speed = speed;
+            this.Speed = speed;
         }
+
+        public float Speed { get => speed; set => speed = value; }
 
         public override void Update()
         {
-            position.X -= (speed * SpaceGame.gameSpeed);
+            position.X -= (Speed * SpaceGame.gameSpeed);
         }
     }
 }

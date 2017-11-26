@@ -24,7 +24,7 @@ namespace Game2D
         //Objekte:
         List<GameObject> gameObjects = new List<GameObject>();
         Player player;
-        bool running = true;
+        bool isRunning = true;
 
 
         public SpaceGame()
@@ -53,10 +53,11 @@ namespace Game2D
             backgroundTile = Content.Load<Texture2D>("spaceTile");
             font = Content.Load<SpriteFont>("Courier New");
             obstacleTextures.Add(Content.Load<Texture2D>("asteroid"));
-            obstacleTextures.Add(Content.Load<Texture2D>("penis")); 
+            obstacleTextures.Add(Content.Load<Texture2D>("penis"));
+            obstacleTextures.Add(Content.Load<Texture2D>("doener2"));
         }
 
-        private Obstacle createRandomObstacle(Texture2D textureObstacle, float speed)
+        private Obstacle CreateRandomObstacle(Texture2D textureObstacle, float speed)
         {
             Viewport screen = GraphicsDevice.Viewport;
             float textureScale = ((player.TextureStanding.Height * player.TextureScale) / 2) / textureObstacle.Height;
@@ -78,16 +79,16 @@ namespace Game2D
                 Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.P))
             {
-                running = true;
+                isRunning = true;
             }
             //Neue Objekte erstellen:
-            if (running)
+            if (isRunning)
             {
                 if (random.Next(60) == 0)
                 {
-                    if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
+                    if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 700)
                     {
-                        gameObjects.Add(createRandomObstacle(obstacleTextures[random.Next(obstacleTextures.Count)], 6f));
+                        gameObjects.Add(CreateRandomObstacle(obstacleTextures[random.Next(obstacleTextures.Count)], 6f));
                     }
                 }
                 //Alles Updaten:
@@ -103,19 +104,11 @@ namespace Game2D
                     //Kollision:
                     if (player.GetBoundary.Intersects(gameObjects[i].GetBoundary))
                     {
-                        gameSpeed = 1;
-                        if (player.GetBoundary.X >= gameObjects[i].GetBoundary.X - player.GetBoundary.Width)
-                        {
-                            if (player.GetBoundary.Y - player.GetBoundary.Height + 10 > gameObjects[i].GetBoundary.Y)
-                            {
-                                gameSpeed = 0;
-                                running = false;
-                            }
-                        }
                         if (player.Score > player.Highscore) player.Highscore = player.Score;
+                        gameSpeed = 1;
                         player.Score = 0;
-                        running = false;
-
+                        isRunning = false;
+                        player.IntersectsWith = gameObjects[i];
                     }
                 }
                 //Score:
@@ -129,7 +122,7 @@ namespace Game2D
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null);
-            drawBackground(spriteBatch);
+            DrawBackground(spriteBatch);
             //Objekte malen
             for (int i = 0; i < gameObjects.Count; i++)
             {
@@ -139,12 +132,11 @@ namespace Game2D
             //Font schreiben
             spriteBatch.DrawString(font, "HS: " + player.Highscore.ToString(), new Vector2(40, 0), Color.ForestGreen);
             spriteBatch.DrawString(font, player.Score.ToString(), new Vector2(40, 70), Color.Firebrick);
-
             spriteBatch.End();
             base.Draw(gameTime);
         }
 
-        private void drawBackground(SpriteBatch spriteBatch)
+        private void DrawBackground(SpriteBatch spriteBatch)
         {
             int n = GraphicsDevice.Viewport.Width / backgroundTile.Width + 1;
             for (int x = 0; x < n; x++)

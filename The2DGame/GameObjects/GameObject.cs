@@ -30,7 +30,7 @@ namespace Game2D.GameObjects
 
         public abstract void Update();
 
-        public Vector2 Position => position;
+        public Vector2 Position { get => position; set => position = value; }
         public Rectangle GetBoundary => new Rectangle((int)position.X, (int)position.Y, (int)(texture.Width * TextureScale), (int)(texture.Height * TextureScale));
 
         public float TextureScale { get => textureScale; }
