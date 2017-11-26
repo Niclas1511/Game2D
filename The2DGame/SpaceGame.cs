@@ -24,6 +24,7 @@ namespace Game2D
         //Objekte:
         List<GameObject> gameObjects = new List<GameObject>();
         Player player;
+        bool running = true;
 
 
         public SpaceGame()
@@ -75,35 +76,52 @@ namespace Game2D
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.P))
+            {
+                running = true;
+            }
             //Neue Objekte erstellen:
-            if (random.Next(60) == 0)
+            if (running)
             {
-                if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
+                if (random.Next(60) == 0)
                 {
-                    gameObjects.Add(createRandomObstacle(obstacleTextures[random.Next(obstacleTextures.Count)], 6f));
+                    if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 600)
+                    {
+                        gameObjects.Add(createRandomObstacle(obstacleTextures[random.Next(obstacleTextures.Count)], 6f));
+                    }
                 }
+                //Alles Updaten:
+                player.Update();
+                for (int i = 0; i < gameObjects.Count; i++)
+                {
+                    gameObjects[i].Update();
+                    if (gameObjects[i].Position.X < -200)
+                    {
+                        gameObjects.RemoveAt(i);
+                        continue;
+                    }
+                    //Kollision:
+                    if (player.GetBoundary.Intersects(gameObjects[i].GetBoundary))
+                    {
+                        gameSpeed = 1;
+                        if (player.GetBoundary.X >= gameObjects[i].GetBoundary.X - player.GetBoundary.Width)
+                        {
+                            if (player.GetBoundary.Y - player.GetBoundary.Height + 10 > gameObjects[i].GetBoundary.Y)
+                            {
+                                gameSpeed = 0;
+                                running = false;
+                            }
+                        }
+                        if (player.Score > player.Highscore) player.Highscore = player.Score;
+                        player.Score = 0;
+                        running = false;
+
+                    }
+                }
+                //Score:
+                player.Score += (int)(1 * SpaceGame.gameSpeed);
+                SpaceGame.gameSpeed += 0.002f;
             }
-            //Alles Updaten:
-            player.Update();
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                gameObjects[i].Update();
-                if (gameObjects[i].Position.X < -200)
-                {
-                    gameObjects.RemoveAt(i);
-                    continue;
-                }
-                //Kollision:
-                if (player.GetBoundary.Intersects(gameObjects[i].GetBoundary))
-                {
-                    if (player.Score > player.Highscore) player.Highscore = player.Score;
-                    player.Score = 0;
-                    gameSpeed = 1;
-                }
-            }
-            //Score:
-            player.Score += (int)(1 * SpaceGame.gameSpeed);
-            SpaceGame.gameSpeed += 0.002f;
             base.Update(gameTime);
         }
 
