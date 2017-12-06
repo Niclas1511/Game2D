@@ -14,8 +14,6 @@ namespace Game2D.GameObjects
         private Texture2D textureCower;
         private Texture2D textureStanding;
 
-        private GameObject intersectsWith;
-
         private int score = 0;
         private int highscore = 0;
 
@@ -96,6 +94,5 @@ namespace Game2D.GameObjects
         public int Score { get => score; set => score = value; }
         public int Highscore { get => highscore; set => highscore = value; }
         public Texture2D TextureStanding { get => textureStanding; }
-        public GameObject IntersectsWith { get => intersectsWith; set => intersectsWith = value; }
     }
 }

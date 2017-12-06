@@ -10,7 +10,7 @@ namespace Game2D
     public class SpaceGame : Game
     {
         //static:
-        public static float gameSpeed = 1;
+        public static float gameSpeed = 4;
         public static float gravity = 1.2f;
 
         //Technisch:
@@ -79,14 +79,17 @@ namespace Game2D
                 Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.P))
             {
+                isRunning = false;
+            }
+            if (Keyboard.GetState().IsKeyUp(Keys.P))
+            {
                 isRunning = true;
             }
-            //Neue Objekte erstellen:
             if (isRunning)
             {
-                if (random.Next(60) == 0)
+                if (random.Next(80) == 0)
                 {
-                    if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 700)
+                    if (gameObjects.Count == 0 || gameObjects[gameObjects.Count - 1].Position.X < 500)
                     {
                         gameObjects.Add(CreateRandomObstacle(obstacleTextures[random.Next(obstacleTextures.Count)], 6f));
                     }
@@ -107,13 +110,12 @@ namespace Game2D
                         if (player.Score > player.Highscore) player.Highscore = player.Score;
                         gameSpeed = 1;
                         player.Score = 0;
-                        isRunning = false;
-                        player.IntersectsWith = gameObjects[i];
+                        gameObjects.Clear();
                     }
                 }
                 //Score:
                 player.Score += (int)(1 * SpaceGame.gameSpeed);
-                SpaceGame.gameSpeed += 0.002f;
+                //SpaceGame.gameSpeed += 0.002f;
             }
             base.Update(gameTime);
         }
