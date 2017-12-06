@@ -10,7 +10,7 @@ namespace Game2D
     public class SpaceGame : Game
     {
         //static:
-        public static float gameSpeed = 4;
+        public static float gameSpeed = 1;
         public static float gravity = 1.2f;
 
         //Technisch:
@@ -115,7 +115,7 @@ namespace Game2D
                 }
                 //Score:
                 player.Score += (int)(1 * SpaceGame.gameSpeed);
-                //SpaceGame.gameSpeed += 0.002f;
+                SpaceGame.gameSpeed += 0.002f;
             }
             base.Update(gameTime);
         }
